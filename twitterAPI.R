@@ -22,4 +22,4 @@ for(i in 1:20) {
   print(i)
 }
 #save data
-saveRDS(blacklivesmatterDf, "blacklivesmatterTwitter.RDS")
+saveRDS(blacklivesmatterDf, "./data/blacklivesmatterTwitter.RDS")
