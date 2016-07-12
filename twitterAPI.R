@@ -10,16 +10,17 @@ AuthenticateWithTwitterAPI(api_key=consumer_key,
                            access_token_secret=access_secret)
 #variables where to store data
 blacklivesmatter=c()
-blacklivesmatterDf=data.frame(NULL)
+blacklivesmatterTwitterDf=data.frame(NULL)
 maksID=NULL
 #looping
-for(i in 1:20) {
-  blacklivesmatter=searchTwitteR('@nytimes AND black OR police OR philando OR castile 
-                         OR racism OR alton OR sterling OR police -saudi -', resultType="recent", n = 1500, 
+for(i in 1:30) {
+  blacklivesmatter=searchTwitteR('@nytimes AND black OR police OR philando OR castile OR racism OR alton OR sterling OR police -saudi -',
+                                 resultType="recent", n = 1500, 
                                  lang = "en", maxID = maksID)
-  blacklivesmatterDf=rbind(blacklivesmatterDf,twListToDF(blacklivesmatter))
-  maksID=blacklivesmatterDf$id[nrow(blacklivesmatterDf)]
+  blacklivesmatterTwitterDf=rbind(blacklivesmatterTwitterDf,
+                                  twListToDF(blacklivesmatter))
+  maksID=blacklivesmatterTwitterDf$id[nrow(blacklivesmatterTwitterDf)]
   print(i)
 }
 #save data
-saveRDS(blacklivesmatterDf, "./data/blacklivesmatterTwitter.RDS")
+saveRDS(blacklivesmatterTwitterDf, "./data/blacklivesmatterTwitter.RDS")

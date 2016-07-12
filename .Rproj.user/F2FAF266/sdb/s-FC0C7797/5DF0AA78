@@ -1,0 +1,25 @@
+{
+    "contents" : "",
+    "created" : 1468314963246.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "5DF0AA78",
+    "lastKnownWriteTime" : 32370120545140837,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "smbhskbfwn",
+        "caption" : "comments",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=comments&cache_key=smbhskbfwn",
+        "displayedObservations" : 13301,
+        "environment" : "",
+        "object" : "comments",
+        "totalObservations" : 13301,
+        "variables" : 6
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "type" : "r_dataframe"
+}

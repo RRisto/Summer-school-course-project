@@ -1,0 +1,25 @@
+{
+    "contents" : "",
+    "created" : 1468314358894.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "9566AFF4",
+    "lastKnownWriteTime" : 21392300099829876,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "e05dh9v19j",
+        "caption" : "nytPosts",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=nytPosts&cache_key=e05dh9v19j",
+        "displayedObservations" : 1000,
+        "environment" : "",
+        "object" : "nytPosts",
+        "totalObservations" : 1000,
+        "variables" : 10
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "type" : "r_dataframe"
+}
