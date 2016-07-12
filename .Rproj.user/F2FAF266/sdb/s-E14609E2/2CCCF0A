@@ -1,0 +1,25 @@
+{
+    "contents" : "",
+    "created" : 1468356868779.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "2CCCF0A",
+    "lastKnownWriteTime" : 7011605692497750387,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "4wczp2tps0",
+        "caption" : "NYTarticles",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=NYTarticles&cache_key=4wczp2tps0",
+        "displayedObservations" : 2003,
+        "environment" : "",
+        "object" : "NYTarticles",
+        "totalObservations" : 2003,
+        "variables" : 5
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "type" : "r_dataframe"
+}

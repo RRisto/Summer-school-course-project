@@ -24,3 +24,4 @@ for(i in 1:nrow(relevantPosts)) {
 }
 #save comments
 saveRDS(comments, "fbComments.RDS")
+

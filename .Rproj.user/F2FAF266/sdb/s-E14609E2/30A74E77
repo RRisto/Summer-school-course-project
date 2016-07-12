@@ -1,0 +1,18 @@
+{
+    "contents" : "#create dtm-s\nlibrary(corpustools)\ndtmTweets =  create_matrix(blacklivesmatterTwitterDf$text, \n                   removeStopwords=T, stemWords=T, language='english', \n                   minWordLength =3 )\nldaTweets=lda.fit(dtmTweets, K=20)\nterms(ldaTweets, 10)[,1:5] \n# blacklivesmatterTwitterDf$date=as.Date(blacklivesmatterTwitterDf$created)\n# par(mar = rep(2, 4))\n# lda.plot.topic(ldaTweets, topic_nr = 1, \n#                time_var=blacklivesmatterTwitterDf$date, \n#                category_var = blacklivesmatterTwitterDf$date,\n#                 date_interval='year')\n# \n# lda.plot.time(ldaTweets, 1, blacklivesmatterTwitterDf$date,\n#               date_interval='week')\n# \n# lda.plot.category(ldaTweets, 1, blacklivesmatterTwitterDf$date)",
+    "created" : 1468317809063.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1875133993",
+    "id" : "30A74E77",
+    "lastKnownWriteTime" : 1468348759,
+    "path" : "~/GitHub/Summer-school-course-project/Analysis.R",
+    "project_path" : "Analysis.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "type" : "r_source"
+}
