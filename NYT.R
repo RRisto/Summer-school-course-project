@@ -8,4 +8,6 @@ NYTarticles=getMetaData(apikey = apikey, nrOfArticles = 2000,
 saveRDS(NYTarticles, "./data/NYTarticles.RDS")
 #get body
 NYTarticlesBody=getArticleBody(articleUrls = NYTarticles$urls)
+NYTarticles$body=NYTarticlesBody
+saveRDS(NYTarticles, "./data/NYTarticles.RDS")
 
