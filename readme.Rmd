@@ -8,3 +8,9 @@ Hypotheses:
 - across time periods: some fluctuations
 - across media: diffs in objectivity
 - an interaction between effects 1 and 2: event-bound flucutations are more pronounced wtihin popluar expression than within a standard media
+
+Pipeline:
+- subsetting time periods
+- corpora comparison, with word clouds
+- topic identification
+- analysis of the relative load of each topic across periods
