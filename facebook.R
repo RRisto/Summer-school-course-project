@@ -13,7 +13,7 @@ comments=post2$comments
 
 #find posts that are related to black lives matter subject
 relevantPosts=nytPosts[
-  grepl("black|police|shoot|philando|castile|racism", nytPosts$message),]
+  grepl("black|police|shoot|philando|castile|racism|alton|sterling", nytPosts$message),]
 #loop through relevant posts and collect comments
 comments=data.frame(NULL)
 post=c()

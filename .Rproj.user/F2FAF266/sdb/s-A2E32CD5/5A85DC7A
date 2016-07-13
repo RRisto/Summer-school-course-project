@@ -1,18 +1,18 @@
 {
-    "contents" : "load(\"NYTkey.RData\")\nsource(\"helpers.R\")\nsearchTerms='(\"black lives matter\" \"dallas shooting\" \"racism\")'\n#searchTerms='(\"black lives matter\")'\n\nNYTarticles=getMetaData(apikey = apikey, nrOfArticles = 2000,\n                   fq=searchTerms, beginDate = \"20160712\", dayStep = 30)\nsaveRDS(NYTarticles, \"./data/NYTarticles.RDS\")\n#get body\nNYTarticlesBody=getArticleBody(articleUrls = NYTarticles$urls)\nNYTarticles$body=NYTarticlesBody\nsaveRDS(NYTarticles, \"./data/NYTarticles.RDS\")\n\n",
+    "contents" : "load(\"NYTkey.RData\")\nsource(\"helpers.R\")\nsearchTerms='(\"black lives matter\" \"dallas shooting\" \"racism\" \"philando\" \"castile\" \"alton\" \"sterling\")'\n#searchTerms='(\"black lives matter\")'\n\nNYTarticles=getMetaData(apikey = apikey, nrOfArticles = 2000,\n                   fq=searchTerms, beginDate = \"20160712\")\nsaveRDS(NYTarticles, \"./data/NYTarticles.RDS\")\n#get body\nNYTarticlesBody=getArticleBody(articleUrls = NYTarticles$urls)\nNYTarticles$body=NYTarticlesBody\nsaveRDS(NYTarticles, \"./data/NYTarticles.RDS\")\n\n",
     "created" : 1468348771026.000,
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "2412260651",
+    "hash" : "1559589978",
     "id" : "5A85DC7A",
-    "lastKnownWriteTime" : 1468357055,
+    "lastKnownWriteTime" : 1468392497,
     "path" : "~/GitHub/Summer-school-course-project/NYT.R",
     "project_path" : "NYT.R",
     "properties" : {
         "tempName" : "Untitled1"
     },
-    "relative_order" : 5,
+    "relative_order" : 4,
     "source_on_save" : false,
     "type" : "r_source"
 }

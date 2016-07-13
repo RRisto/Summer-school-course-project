@@ -1,3 +1,25 @@
+#various functions that help to clean data, because I've copied them some of
+#the parts might not be needed, but they do no harm :)
+#modifiyng this function might cause some problems when usin LDA on twitter data
+cleanTweet=function(tweetText) {
+  tweetText <- iconv(tweetText,to="utf-8")
+  tweetText <- gsub("'", "", tweetText)  # remove apostrophes
+  tweetText <- gsub("[[:punct:]]", " ", tweetText)  # replace punctuation with space
+  tweetText <- gsub("[[:cntrl:]]", " ", tweetText)  # replace control characters with space
+  tweetText <- gsub("^[[:space:]]+", "", tweetText) # remove whitespace at beginning of documents
+  tweetText <- gsub("[[:space:]]+$", "", tweetText) # remove whitespace at end of documents
+  tweetText <- tolower(tweetText)  # force to lowercase
+  tweetText <- gsub("brexit|ā|ä|ā|ā|ä|ā", "", tweetText) # remove whitespace at end of documents
+  tweetText=gsub('http\\S+\\s*', '', tweetText)#remove links
+  tweetText=gsub('@rt', '', tweetText)#remove retweet char
+  tweetText <- gsub("@\\w+", " ", tweetText)#remove usenames
+  tweetText <- gsub("[ |\t]{2,}", " ", tweetText) # Remove tabs
+  library(stringr)#remove excess whitesapce
+  tweetText=gsub("\\s+", " ", str_trim(tweetText))
+  #remove documents that have smaller lenght than 3
+  tweetText=tweetText[nchar(tweetText)>3]
+  tweetText
+}
 ########################################################################
 #################functions for scraping metadata and articles
 #helper function to make NYT API call url
