@@ -3,3 +3,8 @@
 This is [VU](http://www.vu.nl/en/ "http://www.vu.nl/en/") Amsterdam Summer School course "Big Data in Society" final project. It is about analyzing how NY Times articles, Twitter and Facebook feed topics differrelated to movement black lives matter.
 
 Authors: Pablo De Juan Bernabéu and Risto Hinno
+
+Hypotheses:
+- across time periods: some fluctuations
+- across media: diffs in objectivity
+- an interaction between effects 1 and 2: event-bound flucutations are more pronounced wtihin popluar expression than within a standard media
