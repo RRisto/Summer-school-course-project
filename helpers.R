@@ -9,9 +9,10 @@ cleanTweet=function(tweetText) {
   tweetText <- gsub("^[[:space:]]+", "", tweetText) # remove whitespace at beginning of documents
   tweetText <- gsub("[[:space:]]+$", "", tweetText) # remove whitespace at end of documents
   tweetText <- tolower(tweetText)  # force to lowercase
-  tweetText <- gsub("ā|ä|ā|ā|ä|ā", "", tweetText) # remove whitespace at end of documents
+  tweetText <- gsub("cnn|nytimes|ā|ä|ā|ā|ä|ā", "", tweetText) # remove whitespace at end of documents
   tweetText=gsub('http\\S+\\s*', '', tweetText)#remove links
   tweetText=gsub('@rt', '', tweetText)#remove retweet char
+  tweetText=gsub('^rt ', '', tweetText)#remove retweet char
   tweetText <- gsub("@\\w+", " ", tweetText)#remove usenames
   tweetText <- gsub("[ |\t]{2,}", " ", tweetText) # Remove tabs
   library(stringr)#remove excess whitesapce
