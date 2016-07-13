@@ -9,5 +9,7 @@ saveRDS(NYTarticles, "./data/NYTarticles.RDS")
 #get body
 NYTarticlesBody=getArticleBody(articleUrls = NYTarticles$urls)
 NYTarticles$body=NYTarticlesBody
+NYTarticles$bodyTitle=paste(NYTarticles$titles, NYTarticles$body)#paste title and body
+NYTarticles$bodyTitle=gsub(" NA$","",NYTarticles$bodyTitle)#remove NAs
 saveRDS(NYTarticles, "./data/NYTarticles.RDS")
 

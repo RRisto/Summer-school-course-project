@@ -1,12 +1,12 @@
 {
-    "contents" : "load(\"NYTkey.RData\")\nsource(\"helpers.R\")\nsearchTerms='(\"black lives matter\" \"dallas shooting\" \"racism\" \"philando\" \"castile\" \"alton\" \"sterling\")'\n#searchTerms='(\"black lives matter\")'\n\nNYTarticles=getMetaData(apikey = apikey, nrOfArticles = 2000,\n                   fq=searchTerms, beginDate = \"20160712\")\nsaveRDS(NYTarticles, \"./data/NYTarticles.RDS\")\n#get body\nNYTarticlesBody=getArticleBody(articleUrls = NYTarticles$urls)\nNYTarticles$body=NYTarticlesBody\nsaveRDS(NYTarticles, \"./data/NYTarticles.RDS\")\n\n",
+    "contents" : "load(\"NYTkey.RData\")\nsource(\"helpers.R\")\nsearchTerms='(\"black lives matter\" \"dallas shooting\" \"racism\" \"philando\" \"castile\" \"alton\" \"sterling\")'\n#searchTerms='(\"black lives matter\")'\n\nNYTarticles=getMetaData(apikey = apikey, nrOfArticles = 2000,\n                   fq=searchTerms, beginDate = \"20160712\")\nsaveRDS(NYTarticles, \"./data/NYTarticles.RDS\")\n#get body\nNYTarticlesBody=getArticleBody(articleUrls = NYTarticles$urls)\nNYTarticles$body=NYTarticlesBody\nNYTarticles$bodyTitle=paste(NYTarticles$titles, NYTarticles$body)#paste title and body\nNYTarticles$bodyTitle=gsub(\" NA$\",\"\",NYTarticles$bodyTitle)#remove NAs\nsaveRDS(NYTarticles, \"./data/NYTarticles.RDS\")\n\n",
     "created" : 1468348771026.000,
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "1559589978",
+    "hash" : "4092173200",
     "id" : "5A85DC7A",
-    "lastKnownWriteTime" : 1468392497,
+    "lastKnownWriteTime" : 1468395277,
     "path" : "~/GitHub/Summer-school-course-project/NYT.R",
     "project_path" : "NYT.R",
     "properties" : {

@@ -9,7 +9,7 @@ cleanTweet=function(tweetText) {
   tweetText <- gsub("^[[:space:]]+", "", tweetText) # remove whitespace at beginning of documents
   tweetText <- gsub("[[:space:]]+$", "", tweetText) # remove whitespace at end of documents
   tweetText <- tolower(tweetText)  # force to lowercase
-  tweetText <- gsub("brexit|ā|ä|ā|ā|ä|ā", "", tweetText) # remove whitespace at end of documents
+  tweetText <- gsub("ā|ä|ā|ā|ä|ā", "", tweetText) # remove whitespace at end of documents
   tweetText=gsub('http\\S+\\s*', '', tweetText)#remove links
   tweetText=gsub('@rt', '', tweetText)#remove retweet char
   tweetText <- gsub("@\\w+", " ", tweetText)#remove usenames
