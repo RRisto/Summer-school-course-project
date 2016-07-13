@@ -28,7 +28,7 @@ terms(ldaTweets, 10)[,1:5]
 table(blacklivesmatterTwitterDf$isRetweet)
 
 library(ggmap)
-TweetLocations=blacklivesmatterTwitterDf[!is.na(blacklivesmatterTwitterDf$latitude),]
+TweetLocations=blacklivesmatterDf[!is.na(blacklivesmatterDf$latitude),]
 TweetLocations$longitude=as.numeric(as.character(TweetLocations$longitude))
 TweetLocations$latitude=as.numeric(as.character(TweetLocations$latitude))
 ###PLot twitter tweets on a map
@@ -297,4 +297,50 @@ wordNet(mFb,faktor = 0.02)
 wordNet(mTw,faktor = 0.02)
 wordNet(mNYTart, faktor = 0.02)
 
+##calculate topic similarity based on word probs
+Fbtopic1=topicmodels::posterior(mFb)[["terms"]][1,]
+twtopic1=topicmodels::posterior(mTw)[["terms"]][1,]
 
+myList <- list(Fbtopic1, twtopic1)
+#create matrix of two vectors
+proov=do.call(rbind, lapply(lapply(myList, unlist), "[",
+                      unique(unlist(c(sapply(myList,names))))))
+#replace NAs with 0s
+proov[is.na(proov)] <- 0
+#cosine distance
+library(lsa)
+cosine(proov[1,], proov[2,])
+
+topicCosine(mFb, mTw, 1,1)
+topicCosine(mFb, mTw, 2,2)
+topicCosine(mFb, mTw, 3,3)
+topicCosine(mNYTart, mTw, 1,1)
+topicCosine(mNYTart, mTw, 2,2)
+topicCosine(mNYTart, mTw, 3,3)
+
+vec=list(mFb, mTw,mNYTart)
+result=data.frame(NULL)
+temp=data.frame(NULL)
+for(n in 1:3) {
+  for(i in 1:length(vec)) {
+    for(j in 1:length(vec)) {
+      result[i,j]=topicCosine(vec[[i]],vec[[j]], n,n)
+    }
+  }
+  }
+
+vec=list(mFb, mTw,mNYTart)
+names=c("mFb", "mTw", "mNYTart")
+resultList=list()
+temp=data.frame(NULL)
+for(n in 1:3) {
+  for(i in 1:length(vec)) {
+    for(j in 1:length(vec)) {
+      temp[i,j]=topicCosine(vec[[i]],vec[[j]], n,n)
+    }
+  }
+  resultList[[n]]=data.frame(temp)
+}
+
+resultList <- lapply(resultList,function(DF) {rownames(DF) <- names; DF})
+resultList <- lapply(resultList,function(DF) {colnames(DF) <- names; DF})
