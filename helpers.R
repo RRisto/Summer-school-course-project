@@ -4,16 +4,17 @@
 cleanTweet=function(tweetText) {
   tweetText <- iconv(tweetText,to="utf-8")
   tweetText <- gsub("'", "", tweetText)  # remove apostrophes
+  tweetText=gsub('[[:digit:]]+', '', tweetText) #remove numbers
+  tweetText=gsub('http\\S+\\s*', '', tweetText)#remove links
+  tweetText=gsub('RT @nytimes', '', tweetText)#remove retweet char
+  tweetText=gsub('^rt |nytimes|times|new york|www', '', tweetText)#remove retweet char
+  tweetText <- gsub("@\\w+", " ", tweetText)#remove usenames
   tweetText <- gsub("[[:punct:]]", " ", tweetText)  # replace punctuation with space
   tweetText <- gsub("[[:cntrl:]]", " ", tweetText)  # replace control characters with space
-  tweetText <- gsub("^[[:space:]]+", "", tweetText) # remove whitespace at beginning of documents
-  tweetText <- gsub("[[:space:]]+$", "", tweetText) # remove whitespace at end of documents
+  #tweetText <- gsub("^[[:space:]]+", "", tweetText) # remove whitespace at beginning of documents
+  #tweetText <- gsub("[[:space:]]+$", "", tweetText) # remove whitespace at end of documents
   tweetText <- tolower(tweetText)  # force to lowercase
-  tweetText <- gsub("cnn|nytimes|ā|ä|ā|ā|ä|ā", "", tweetText) # remove whitespace at end of documents
-  tweetText=gsub('http\\S+\\s*', '', tweetText)#remove links
-  tweetText=gsub('@rt', '', tweetText)#remove retweet char
-  tweetText=gsub('^rt ', '', tweetText)#remove retweet char
-  tweetText <- gsub("@\\w+", " ", tweetText)#remove usenames
+  tweetText <- gsub("cnn|nytimes|ā|ä|ā|ā|ä|ā|http\\S+", "", tweetText) # remove whitespace at end of documents
   tweetText <- gsub("[ |\t]{2,}", " ", tweetText) # Remove tabs
   library(stringr)#remove excess whitesapce
   tweetText=gsub("\\s+", " ", str_trim(tweetText))
@@ -248,3 +249,12 @@ getArticleBody=function(articleUrls,
   }
   body
 }
+
+##for topic modelling visualization, fun it once only
+# invisible(lapply(
+#   file.path(
+#     "https://raw.githubusercontent.com/trinker/topicmodels_learning/master/functions", 
+#     c("topicmodels2LDAvis.R", "optimal_k.R")
+#   ),
+#   devtools::source_url
+# ))
