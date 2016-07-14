@@ -131,7 +131,7 @@ NYTartClean$id=1:nrow(NYTartClean)
 matNYTart <- create_matrix(NYTartClean$textClean)
 #matNYTart
 rownames(matNYTart) <- 1:nrow(matNYTart)
-matNYTart
+#matNYTart
 #View(as.matrix(matNYTart))
 #make topic model
 mNYTart = lda.fit(matNYTart, K=3, alpha=.2)  # K is cut-off, alpha is internal coherence
@@ -192,8 +192,7 @@ fbClean = fbClean[grepl("\\w{3,}", fbClean$textClean), ]#removes
 
 fbClean$id=1:nrow(fbClean)
 #make dtm
-matFb <- create_matrix(fbClean$textClean, minWordLength = 3,
-                       removeStopwords = T)
+matFb <- create_matrix(fbClean$textClean, minWordLength = 3)
 #extra for fb, because apparently LDa makes soe docs with 0 entry
 rowTotals <- apply(matFb , 1, sum)#row sums
 matFb   <- matFb[rowTotals> 0, ] #keep rows with at least 1 entry
@@ -318,17 +317,17 @@ topicCosine(mNYTart, mTw, 1,1)
 topicCosine(mNYTart, mTw, 2,2)
 topicCosine(mNYTart, mTw, 3,3)
 
-vec=list(mFb, mTw,mNYTart)
-result=data.frame(NULL)
-temp=data.frame(NULL)
-for(n in 1:3) {
-  for(i in 1:length(vec)) {
-    for(j in 1:length(vec)) {
-      result[i,j]=topicCosine(vec[[i]],vec[[j]], n,n)
-    }
-  }
-  }
-
+# vec=list(mFb, mTw,mNYTart)
+# result=data.frame(NULL)
+# temp=data.frame(NULL)
+# for(n in 1:3) {
+#   for(i in 1:length(vec)) {
+#     for(j in 1:length(vec)) {
+#       result[i,j]=topicCosine(vec[[i]],vec[[j]], n,n)
+#     }
+#   }
+#   }
+#loop values into a list
 vec=list(mFb, mTw,mNYTart)
 names=c("mFb", "mTw", "mNYTart")
 resultList=list()
@@ -339,8 +338,180 @@ for(n in 1:3) {
       temp[i,j]=topicCosine(vec[[i]],vec[[j]], n,n)
     }
   }
-  resultList[[n]]=data.frame(temp)
+  resultList[[n]]=as.data.frame(temp)
 }
-
+#add row and col names
 resultList <- lapply(resultList,function(DF) {rownames(DF) <- names; DF})
 resultList <- lapply(resultList,function(DF) {colnames(DF) <- names; DF})
+
+#make heatmap
+library(pheatmap)
+
+#colours for heatmap
+YlOrBr <- c('#f7fbff','#deebf7','#c6dbef','#9ecae1','#6baed6',
+            '#4292c6','#2171b5','#08519c','#08306b')
+#very meesy way, needs to be imporved
+cosine1=data.frame(resultList[[1]])
+cosineTopic1=data.frame(NULL)
+cosineTopic1=data.frame(cosine1[,1][1:3],cosine1[,2][1:3],cosine1[,3][1:3])
+namesLong=c("Facebook", "Twitter", "NYT")
+rownames(cosineTopic1)=namesLong
+colnames(cosineTopic1)=namesLong
+#plot it
+pheatmap(cosineTopic1, cluster_rows = F, cluster_cols = F, display_numbers = T,
+         color=YlOrBr,fontsize=20,fontsize_number=15,#number_format="%.0f",
+         number_color="grey50")
+#topic2
+cosine2=data.frame(resultList[[2]])
+cosineTopic2=data.frame(NULL)
+cosineTopic2=data.frame(cosine2[,1][1:3],cosine2[,2][1:3],cosine2[,3][1:3])
+namesLong=c("Facebook", "Twitter", "NYT")
+rownames(cosineTopic2)=namesLong
+colnames(cosineTopic2)=namesLong
+#plot it
+pheatmap(cosineTopic2, cluster_rows = F, cluster_cols = F, display_numbers = T,
+         color=YlOrBr,fontsize=20,fontsize_number=15,#number_format="%.0f",
+         number_color="grey50")
+
+#topic3
+cosine3=data.frame(resultList[[3]])
+cosineTopic3=data.frame(NULL)
+cosineTopic3=data.frame(cosine3[,1][1:3],cosine3[,2][1:3],cosine3[,3][1:3])
+namesLong=c("Facebook", "Twitter", "NYT")
+rownames(cosineTopic3)=namesLong
+colnames(cosineTopic3)=namesLong
+#plot it
+pheatmap(cosineTopic3, cluster_rows = F, cluster_cols = F, display_numbers = T,
+         color=YlOrBr,fontsize=20,fontsize_number=15,#number_format="%.0f",
+         number_color="grey50")
+
+##compare corpora
+cmpFbTW = corpora.compare(matFb,  matTw)
+with(arrange(cmpFbTW, -chi)[1:100, ],
+     plotWords(x=log(over), words = term, wordfreq = chi, random.y = T))
+
+cmpFbTW = cmpFbTW[order(cmpFbTW$over, decreasing=T), ]
+head(cmpFbTW)
+
+cmpFbNYT = corpora.compare(matFb,  matNYTart)
+with(arrange(cmpFbNYT, -chi)[1:100, ],
+     plotWords(x=log(over), words = term, wordfreq = chi, random.y = T))
+
+cmpTwNYT = corpora.compare(matTw,  matNYTart)
+with(arrange(cmpTwNYT, -chi)[1:100, ],
+     plotWords(x=log(over), words = term, wordfreq = chi, random.y = T))
+
+##sentiment analysis
+lexicon = readRDS("data/lexicon.rds")
+
+pos_words = lexicon$word1[lexicon$priorpolarity == "positive"]
+neg_words = lexicon$word1[lexicon$priorpolarity == "negative"]
+
+library(slam)
+twitterClean$npos = row_sums(matTw[, colnames(matTw) %in% pos_words])
+twitterClean$nneg = row_sums(matTw[, colnames(matTw) %in% neg_words])
+#sentiment score
+twitterClean$sent = (twitterClean$npos - twitterClean$nneg) / (twitterClean$npos + twitterClean$nneg)
+twitterClean$sent[is.na(twitterClean$sent)] = 0
+
+#NYT
+NYTartClean$npos = row_sums(matNYTart[, colnames(matNYTart) %in% pos_words])
+NYTartClean$nneg = row_sums(matNYTart[, colnames(matNYTart) %in% neg_words])
+#sentiment score
+NYTartClean$sent = (NYTartClean$npos - NYTartClean$nneg) / (NYTartClean$npos + NYTartClean$nneg)
+NYTartClean$sent[is.na(NYTartClean$sent)] = 0
+
+#fb
+documentsFb=mFb@documents
+#add it to original data
+fbClean2=fbClean[fbClean$id%in%documentsFb,]
+
+fbClean2$npos = row_sums(matFb[, colnames(matFb) %in% pos_words])
+fbClean2$nneg = row_sums(matFb[, colnames(matFb) %in% neg_words])
+#sentiment score
+fbClean2$sent = (fbClean2$npos - fbClean2$nneg) / (fbClean2$npos + fbClean2$nneg)
+fbClean2$sent[is.na(fbClean2$sent)] = 0
+
+
+##plot sentiment dists
+sentScores=data.frame(sent=c(Facebook=fbClean2$sent, 
+                             Twitter=twitterClean$sent,
+                      NYT=NYTartClean$sent))
+sentScores$dataset=gsub("[[:digit:]]+", "", sentScores)
+
+library(ggplot2)
+ggplot(sentScores, aes(x=sent))+
+  geom_histogram(#aes(y=..count../sum(..count..)),
+                 bins =15, fill="lightblue")+
+  facet_wrap(~dataset, scales="free")+
+  theme_minimal()+
+  xlab("Sentiment score")
+
+##############senitment per topic and doc
+#get each doc topic
+gammaDFTw <- as.data.frame(mTw@gamma) 
+names(gammaDFTw) <- c(1:3)
+
+#assign most prob topic
+gammaDFTw$topic=colnames(gammaDFTw)[max.col(gammaDFTw)]
+documentsTw=mTw@documents
+#add it to original data
+twitterClean2=twitterClean[twitterClean$id%in%documentsTw,]
+twitterClean2$topic=gammaDFTw$topic
+
+#plot it
+ggplot(twitterClean2, aes(x=sent))+
+  geom_histogram(bins=7, fill="lightblue")+
+  facet_wrap(~topic, scales="free")+
+  theme_minimal()
+
+###facebook
+#get each doc topic
+gammaDFfb <- as.data.frame(mFb@gamma) 
+names(gammaDFfb) <- c(1:3)#1:nr of topics
+
+#assign most prob topic
+gammaDFfb$topic=colnames(gammaDFfb)[max.col(gammaDFfb)]
+#documentsFb=mFb@documents
+#add it to original data
+#fbClean2=fbClean[fbClean$id%in%documentsFb,]
+fbClean2$topic=gammaDFfb$topic
+
+#plot it
+ggplot(fbClean2, aes(x=sent))+
+  geom_histogram(bins=7, fill="lightblue")+
+  facet_wrap(~topic, scales="free")+
+  theme_minimal()
+
+###NYT
+#get each doc topic
+gammaDFNYT <- as.data.frame(mNYTart@gamma) 
+names(gammaDFNYT) <- c(1:3)
+
+#assign most prob topic
+gammaDFNYT$topic=colnames(gammaDFNYT)[max.col(gammaDFNYT)]
+documentsNYT=mNYTart@documents
+#add it to original data
+NYTClean2=NYTartClean[NYTartClean$id%in%documentsNYT,]
+NYTClean2$topic=gammaDFNYT$topic
+
+#plot it
+ggplot(NYTClean2, aes(x=sent))+
+  geom_histogram(bins=7, fill="lightblue")+
+  facet_wrap(~topic, scales="free")+
+  theme_minimal()
+
+#make on plot all datasets and all topics sent scores
+sentScoresAll=rbind(twitterClean2[, c("sent", "topic")],
+                    NYTClean2[, c("sent", "topic")],
+                    fbClean2[, c("sent", "topic")])
+sentScoresAll$dataset=c(rep("Twitter", nrow(twitterClean2)), 
+                        rep("NYT", nrow(NYTClean2)),
+                        rep("Facebook", nrow(fbClean2)))
+
+#plot it
+ggplot(sentScoresAll, aes(x=sent))+
+  geom_histogram(fill="lightblue", bins=10)+
+  facet_grid(dataset~topic, scales = "free")+
+  theme_minimal()
+
