@@ -1,6 +1,6 @@
 ##Readme
 
-This is [VU](http://www.vu.nl/en/ "http://www.vu.nl/en/") Amsterdam Summer School course "Big Data in Society" final project. It is about analyzing how NY Times articles, Twitter and Facebook feed topics differrelated to movement black lives matter.
+This is [VU](http://www.vu.nl/en/ "http://www.vu.nl/en/") Amsterdam Summer School course "Big Data in Society" final project. It is about analyzing how NY Times articles, Twitter and Facebook feed topics differrelated to movement black lives matter. Visualisations are [here](http://rristo.github.io/start.html "http://rristo.github.io/start.html").
 
 Authors: Pablo De Juan Bernabéu and Risto Hinno
 
