@@ -5,6 +5,7 @@ This is [VU](http://www.vu.nl/en/ "http://www.vu.nl/en/") Amsterdam Summer Schoo
 Authors: Pablo Bernabéu and Risto Hinno
 
 Legend:
+- [Article](https://github.com/RRisto/Summer-school-course-project/blob/master/BLM/BLM.pdf "https://github.com/RRisto/Summer-school-course-project/blob/master/BLM/BLM.pdf") for which the analysis was done.
 - [Analysis.R](https://github.com/RRisto/Summer-school-course-project/blob/master/Analysis.R "https://github.com/RRisto/Summer-school-course-project/blob/master/Analysis.R") - contains code for main analysis and data cleaning. Didn't set seed, so getting exactly same results is complicated (but results should not be very different!)
 - [NYT.R](https://github.com/RRisto/Summer-school-course-project/blob/master/NYT.R "https://github.com/RRisto/Summer-school-course-project/blob/master/NYT.R") - code for getting data NYT API and scraping articles bodies from NYT
 - [facebook.R](https://github.com/RRisto/Summer-school-course-project/blob/master/facebook.R "https://github.com/RRisto/Summer-school-course-project/blob/master/facebook.R") - code for geting articles of NYT facebook page and sorting out relevant articles which comments are used for analysis
