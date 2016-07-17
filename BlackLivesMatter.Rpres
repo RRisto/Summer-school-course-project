@@ -1,0 +1,111 @@
+LMD crisis in NYT media
+========================================================
+author: Pablo Bernabeu and Risto Hinno
+date: 15.07.2016
+
+Background, problem, hypothesis
+========================================================
+
+- 07/05 Louisiana killing
+- 07/06 Minnesota killing
+- 07/07 Dallas shooting
+
+Hypotheses:
+- Differences in topics across channels
+- Differences across time periods
+- Interaction between channels across time periods
+
+Data
+========================================================
+NY Times:
+
+- NYT API (+web scraping)
+- NYT @Twitter
+- NYT Facebook comments
+
+Sentiment of datasets
+========================================================
+
+![](SentientScoreDatasetBoxplot.png)
+
+NYT topics via LDAvis
+========================================================
+
+![NYT](LDAvis.png)
+
+Facebook topics via LDAvis
+========================================================
+
+![Facebook](LDAvis1.png)
+
+Twitter topics via LDAvis
+========================================================
+
+![Twitter](LDavis3.png)
+
+Facebook topics
+========================================================
+
+```{r, echo=F}
+
+readRDS("data/termsfb.RDS")
+```
+
+
+Twitter topics
+========================================================
+
+```{r, echo=F}
+
+readRDS("data/termsTw.RDS")
+```
+
+
+NYT topics
+========================================================
+
+```{r, echo=F}
+
+readRDS("data/termsNYT.RDS")
+```
+
+Topic similarity based on cosine similarity
+========================================================
+
+![](CosineSimFbVsTw.png)
+
+
+Topic similarity based on cosine similarity
+========================================================
+
+![](CosineSimTwvsNYT.png)
+
+Topic similarity based on cosine similarity
+========================================================
+
+
+![](CosineSimFbVsNYT.png)
+
+
+Topics in time
+========================================================
+![](TopicTime.png)
+
+Topics are not totally comparable
+
+Conclusions
+========================================================
+
+- Main effect of Media: NYT articles more neutral, 
+though Facebook close behind
+- Interaction effect: Topics varied throughout crisis
+in different ways across media. 
+- Caveats: 
+    - tight time frame
+    - validate results with more methods
+
+Code and visualisation
+========================================================
+
+- Code: https://github.com/RRisto/Summer-school-course-project
+- Visualisations: http://rristo.github.io/start.html

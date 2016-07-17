@@ -190,7 +190,7 @@ rownames(matFb) <- 1:nrow(matFb)
 #make topic model
 mFb= lda.fit(matFb, K=3, alpha=.2)  # K is cut-off, alpha is internal 
 #coherence
-terms(mFb,20)
+terms(mFb,10)
 
 library(LDAvis)
 jsonFb = ldavis_json(mFb, matFb)
@@ -322,6 +322,7 @@ cosintwFb2=data.frame(csoinTwNYT[,1][1:3],csoinTwNYT[,2][1:3],
 rownames(cosintwFb2)=c("Facebook tp 1", "Facebook tp 2","Facebook tp 3")
 colnames(cosintwFb2)=c("Twitter tp 1", "Twitter tp 2","Twitter tp 3")
 #plot it
+library(pheatmap)
 pheatmap(cosintwFb2, cluster_rows = F, cluster_cols = F, 
          display_numbers = T,color=YlOrBr,fontsize=20,fontsize_number=15,
          number_color="grey50")
@@ -620,3 +621,24 @@ ggplot(sentScoresAll, aes(x=topic, y=sent))+
         axis.text.y = element_text(colour="grey20",size=12,face="bold"),  
         axis.title.x = element_text(colour="grey20",size=15,face="bold"),
         strip.text.x = element_text(size=12, face="bold"))
+
+####summary tables for rmarkdown
+twitterDataSummary=table(twitterClean2$date, twitterClean2$period)
+fbDataSummary=table(fbClean2$date, fbClean2$period)
+NYTDataSummary=table(NYTartClean$date, NYTartClean$period)
+
+saveRDS(twitterDataSummary, "data/twitterDataSummary.RDS")
+saveRDS(fbDataSummary, "data/fbDataSummary.RDS")
+saveRDS(NYTDataSummary, "data/NYTDataSummary.RDS")
+
+###terms of each model
+termsfb=as.data.frame(terms(mFb,10))
+names(termsfb)=c("Police", "People", "Black lives matter")
+termsTw=as.data.frame(terms(mTw,10))
+names(termsTw)=c("Racism", "Dallas shooting", "Philando shooting")
+termsNYT=as.data.frame(terms(mNYTart,10))
+names(termsNYT)=c("Foreign policy", "Shooting", "Elections")
+
+saveRDS(termsfb, "data/termsfb.RDS")
+saveRDS(termsTw, "data/termsTw.RDS")
+saveRDS(termsNYT, "data/termsNYT.RDS")
