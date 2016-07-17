@@ -1,16 +1,15 @@
 ##Readme
 
-This is [VU](http://www.vu.nl/en/ "http://www.vu.nl/en/") Amsterdam Summer School course "Big Data in Society" final project. It is about analyzing how NY Times articles, Twitter and Facebook feed topics differrelated to movement black lives matter. Visualisations are [here](http://rristo.github.io/start.html "http://rristo.github.io/start.html").
+This is [VU](http://www.vu.nl/en/ "http://www.vu.nl/en/") Amsterdam Summer School course "Big Data in Society" final project. It is about analyzing how NY Times articles, Twitter and Facebook feed topics differrelated to shootings/killings in Dallas, Louisiana and Minnesota in July 2016. Visualisations are [here](http://rristo.github.io/start.html "http://rristo.github.io/start.html").
 
 Authors: Pablo De Juan Bernabéu and Risto Hinno
 
-Hypotheses:
-- across time periods: some fluctuations
-- across media: diffs in objectivity
-- an interaction between effects 1 and 2: event-bound flucutations are more pronounced wtihin popluar expression than within a standard media
+Legend:
+- [Analysis.R](https://github.com/RRisto/Summer-school-course-project/blob/master/Analysis.R "https://github.com/RRisto/Summer-school-course-project/blob/master/Analysis.R") - contains code for main analysis and data cleaning. Didn't set seed, so getting exactly same results is complicated (but results should not be very different!)
+- [NYT.R](https://github.com/RRisto/Summer-school-course-project/blob/master/NYT.R "https://github.com/RRisto/Summer-school-course-project/blob/master/NYT.R") - code for getting data NYT API and scraping articles bodies from NYT
+- [facebook.R](https://github.com/RRisto/Summer-school-course-project/blob/master/facebook.R "https://github.com/RRisto/Summer-school-course-project/blob/master/facebook.R") - code for geting articles of NYT facebook page and sorting out relevant articles which comments are used for analysis
+- [twitterAPI.R](https://github.com/RRisto/Summer-school-course-project/blob/master/twitterAPI.R "https://github.com/RRisto/Summer-school-course-project/blob/master/twitterAPI.R") - code for collecting data NYT twitter account. As you get data from Twitter max 10 days in past, you cannot collect same data (unless somebody has stored it)
+- [helpers.R](https://github.com/RRisto/Summer-school-course-project/blob/master/helpers.R "https://github.com/RRisto/Summer-school-course-project/blob/master/helpers.R") - helper functions for analysis and data collection
 
-Pipeline:
-- subsetting time periods
-- corpora comparison, with word clouds
-- topic identification
-- analysis of the relative load of each topic across periods
+Code is ugly (we were in a hurry in this project), but it works :)
+
